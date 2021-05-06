@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon May  3 21:43:40 2021
+Created on Mon May  3 21:47:24 2021
 
 @author: ASUS
 """
@@ -14,16 +14,14 @@ from tkinter import messagebox
 window = Tk()
 
 cell = ''
-turn = True
+turn = False
 
 host = '127.0.0.1'
 port = 65435
 
-conn ,addr = None,None
-
 sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-sock.bind((host,port))
-sock.listen(1)
+sock.connect((host,port))
+
 
 #Connections
 def create_thread(target1):
@@ -35,7 +33,7 @@ def receiveData():
     global cell
     global turn
     while True:
-        data,addr = conn.recvfrom(1024)
+        data,addr = sock.recvfrom(1024)
         data2 = data.decode()
         dataa = data2.split('-')
         cell = dataa[0]
@@ -65,18 +63,11 @@ def update():
         clicked9()
     else:
         print("No Match Char")
-
-def waitingConnect():
-    print("Thread Created")
-    global conn, addr
-    conn, addr = sock.accept()
-    print("Client is connected ")
-    receiveData()
     
-create_thread(waitingConnect)
+create_thread(receiveData)
 
 #GUI
-window.title("Welcome player1 to The game TicTacToe")
+window.title("Welcome player2 to The game TicTacToe")
 window.geometry("400x300")
 
 lab = Label(window,text="Tic-Tac-Toe Game",font=('Helvetica','15'))
@@ -93,7 +84,7 @@ def clicked1():
     if turn==True and btn1["text"]==" ":
         btn1["text"]="X"
         send_data ='{}-{}'.format('A','YourTurn').encode()
-        conn.send(send_data)
+        sock.send(send_data)
         print(send_data)
         turn = False
         check()
@@ -108,7 +99,7 @@ def clicked2():
     if turn==True and btn2["text"]==" ":
         btn2["text"]="X"
         send_data ='{}-{}'.format('B','YourTurn').encode()
-        conn.send(send_data)
+        sock.send(send_data)
         print(send_data)
         turn = False
         check()
@@ -123,7 +114,7 @@ def clicked3():
     if turn==True and btn3["text"]==" ":
         btn3["text"]="X"
         send_data ='{}-{}'.format('C','YourTurn').encode()
-        conn.send(send_data)
+        sock.send(send_data)
         print(send_data)
         turn = False
         check()
@@ -138,7 +129,7 @@ def clicked4():
     if turn==True and btn4["text"]==" ":
         btn4["text"]="X"
         send_data ='{}-{}'.format('D','YourTurn').encode()
-        conn.send(send_data)
+        sock.send(send_data)
         print(send_data)
         turn = False
         check()
@@ -153,7 +144,7 @@ def clicked5():
     if turn==True and btn5["text"]==" ":
         btn5["text"]="X"
         send_data ='{}-{}'.format('E','YourTurn').encode()
-        conn.send(send_data)
+        sock.send(send_data)
         print(send_data)
         turn = False
         check()
@@ -168,7 +159,7 @@ def clicked6():
     if turn==True and btn6["text"]==" ":
         btn6["text"]="X"
         send_data ='{}-{}'.format('F','YourTurn').encode()
-        conn.send(send_data)
+        sock.send(send_data)
         print(send_data)
         turn = False
         check()
@@ -183,7 +174,7 @@ def clicked7():
     if turn==True and btn7["text"]==" ":
         btn7["text"]="X"
         send_data ='{}-{}'.format('G','YourTurn').encode()
-        conn.send(send_data)
+        sock.send(send_data)
         print(send_data)
         turn = False
         check()
@@ -198,7 +189,7 @@ def clicked8():
     if turn==True and btn8["text"]==" ":
         btn8["text"]="X"
         send_data ='{}-{}'.format('H','YourTurn').encode()
-        conn.send(send_data)
+        sock.send(send_data)
         print(send_data)
         turn = False
         check()
@@ -213,7 +204,7 @@ def clicked9():
     if turn==True and btn9["text"]==" ":
         btn9["text"]="X"
         send_data ='{}-{}'.format('I','YourTurn').encode()
-        conn.send(send_data)
+        sock.send(send_data)
         print(send_data)
         turn = False
         check()
@@ -290,3 +281,4 @@ btn9 = Button(window,text=" ",bg="white",fg="black",width=3,height=1,font=('Helv
 btn9.grid(column=3,row=3)
 
 window.mainloop()
+    
