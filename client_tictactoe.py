@@ -22,7 +22,6 @@ port = 65435
 sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 sock.connect((host,port))
 
-
 #Connections
 def create_thread(target1):
     thread = threading.Thread(target=target1)
@@ -72,9 +71,9 @@ window.geometry("400x300")
 
 lab = Label(window,text="Tic-Tac-Toe Game",font=('Helvetica','15'))
 lab.grid(row=0,column=0)
-lab = Label(window,text="Player 1: X",font=('Helvetica','10'))
+lab = Label(window,text="Player 1: O",font=('Helvetica','10'))
 lab.grid(row=1,column=0)
-lab = Label(window,text="Player 2: O",font=('Helvetica','10'))
+lab = Label(window,text="Player 2 (YOU): X",font=('Helvetica','10'))
 lab.grid(row=2,column=0)
 
 #command for tictacte server
